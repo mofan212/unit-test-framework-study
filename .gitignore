@@ -1,0 +1,12 @@
+*.iws
+*.iml
+*.ipr
+
+# IntelliJ
+.idea/
+/out/
+
+# Java class files
+*.class
+**/target
+/.idea/
