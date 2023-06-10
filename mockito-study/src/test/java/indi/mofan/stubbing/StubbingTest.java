@@ -2,6 +2,7 @@ package indi.mofan.stubbing;
 
 import indi.mofan.helloworld.service.StubbingService;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class StubbingTest {
     @Test
     public void howToUseStubbing() {
         Mockito.when(list.get(0)).thenReturn("first");
-        Assert.assertThat(list.get(0), CoreMatchers.equalTo("first"));
+        MatcherAssert.assertThat(list.get(0), CoreMatchers.equalTo("first"));
 
         Mockito.when(list.get(Mockito.anyInt())).thenThrow(new RuntimeException());
 
@@ -44,7 +45,7 @@ public class StubbingTest {
             Assert.fail();
         } catch (Exception e) {
             // 断言抛出异常
-            Assert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
+            MatcherAssert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
         }
     }
 
@@ -61,7 +62,7 @@ public class StubbingTest {
             list.clear();
             Assert.fail();
         } catch (Exception e) {
-            Assert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
+            MatcherAssert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
         }
     }
 
@@ -70,7 +71,7 @@ public class StubbingTest {
         Mockito.when(list.get(0)).thenReturn("first");
         Mockito.doReturn("second").when(list).get(1);
 
-        Assert.assertThat(list.get(0), CoreMatchers.equalTo("first"));
+        MatcherAssert.assertThat(list.get(0), CoreMatchers.equalTo("first"));
         Assert.assertEquals(list.get(1), "second");
     }
 
@@ -116,6 +117,4 @@ public class StubbingTest {
         Assert.assertEquals(service.getI(), 10);
     }
 
-
-    
 }

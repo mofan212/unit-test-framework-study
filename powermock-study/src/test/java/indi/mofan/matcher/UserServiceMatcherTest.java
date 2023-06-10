@@ -53,14 +53,11 @@ public class UserServiceMatcherTest {
 
         PowerMockito.when(userDao.queryByName(Mockito.anyString())).then(invocation -> {
             String arg = (String) invocation.getArguments()[0];
-            switch (arg) {
-                case "mofan":
-                    return "I am mofan.";
-                case "yang":
-                    return "I am Yang.";
-                default:
-                    throw new RuntimeException("Not support " + arg);
-            }
+            return switch (arg) {
+                case "mofan" -> "I am mofan.";
+                case "yang" -> "I am Yang.";
+                default -> throw new RuntimeException("Not support " + arg);
+            };
         });
 
         UserService userService = new UserService();
@@ -77,13 +74,10 @@ public class UserServiceMatcherTest {
 
     static class MyArgumentMatcher implements ArgumentMatcher<String> {
         public boolean matches(String s) {
-            switch (s){
-                case "mofan":
-                case "yang":
-                    return true;
-                default:
-                    return false;
-            }
+            return switch (s) {
+                case "mofan", "yang" -> true;
+                default -> false;
+            };
         }
     }
 

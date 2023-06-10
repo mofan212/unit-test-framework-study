@@ -1,7 +1,7 @@
 package indi.mofan.verify;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -69,7 +70,7 @@ public class VerifyTest {
         verify(list, atLeastOnce()).add("third");
         // 最少执行两次, 不足报错
         verify(list, atLeast(2)).add("twice");
-        // 最多执行五次, 错过报错
+        // 最多执行五次, 超过报错
         verify(list, atMost(5)).add("third");
     }
 
@@ -120,7 +121,7 @@ public class VerifyTest {
         // 验证某个交互没有执行
         verify(secondList, never()).add("默烦");
         // 验证某些 mock 对象没有交互过
-        verifyNoMoreInteractions(firstList, thirdList);
+        verifyNoInteractions(thirdList);
     }
 
     @Test
@@ -136,7 +137,6 @@ public class VerifyTest {
     }
 
     @Test
-    @Ignore
     public void testNoMoreInteraction_2() {
         List<String> list = mock(ArrayList.class);
 
@@ -172,8 +172,8 @@ public class VerifyTest {
         when(firstList.get(0)).thenReturn(10);
         when(secondList.get(0)).thenReturn(20);
 
-        Assert.assertThat(firstList.get(0), CoreMatchers.equalTo(10));
-        Assert.assertThat(secondList.get(0), CoreMatchers.equalTo(20));
+        MatcherAssert.assertThat(firstList.get(0), CoreMatchers.equalTo(10));
+        MatcherAssert.assertThat(secondList.get(0), CoreMatchers.equalTo(20));
         /*
          * 下面的测试不会通过因为没有对 Stubbing 进行验证
          * verifyNoMoreInteractions(firstList, secondList);

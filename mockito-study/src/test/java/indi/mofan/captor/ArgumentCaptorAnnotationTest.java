@@ -8,7 +8,6 @@ import org.mockito.Captor;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -24,8 +23,9 @@ public class ArgumentCaptorAnnotationTest {
     ArgumentCaptor<List<String>> captor;
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testCaptureArgument() {
-        List<String> list = Arrays.asList("1", "2");
+        List<String> list = List.of("1", "2");
         List<String> mockedList = mock(ArrayList.class);
         mockedList.addAll(list);
         // 参数的捕获

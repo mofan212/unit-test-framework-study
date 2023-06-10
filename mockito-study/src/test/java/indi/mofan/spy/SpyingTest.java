@@ -46,6 +46,7 @@ public class SpyingTest {
 
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testDistinguishMockAndSpy() {
         List<String> realList = new ArrayList<>();
         List<String> spyList = Mockito.spy(realList);

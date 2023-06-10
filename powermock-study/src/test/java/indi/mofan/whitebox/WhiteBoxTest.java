@@ -136,7 +136,6 @@ public class WhiteBoxTest {
      * 由于 InnerTestClass 是一个 private 的内部类，因此是没办法像下面这样 mock，因为这个内部类是不可见的：
      * `TestClass.InnerTestClass clazz = mock(TestClass.InnerTestClass.class)`
      * 那我们可以通过反射获取到 InnerTestClass 的构造方法，然后生成一个对象进行测试
-     * @throws Exception
      */
     @Test
     public void testInnerClass() throws Exception {

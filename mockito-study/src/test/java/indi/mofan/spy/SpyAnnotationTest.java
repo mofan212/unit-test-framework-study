@@ -1,5 +1,6 @@
 package indi.mofan.spy;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,17 @@ import java.util.List;
 public class SpyAnnotationTest {
     @Spy
     List<String> list = new ArrayList<>();
-    
+
+    private AutoCloseable closeable;
+
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void destroy() throws Exception {
+        closeable.close();
     }
     
     @Test

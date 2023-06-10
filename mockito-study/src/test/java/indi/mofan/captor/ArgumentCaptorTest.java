@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,9 +18,9 @@ import static org.mockito.Mockito.verify;
 public class ArgumentCaptorTest {
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked, rawtypes")
     public void testCaptureArgument() {
-        List<String> list = Arrays.asList("1", "2");
+        List<String> list = List.of("1", "2");
         List<String> mockedList = mock(ArrayList.class);
         ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
         mockedList.addAll(list);
@@ -33,6 +32,7 @@ public class ArgumentCaptorTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void test() {
         List<Integer> list = mock(ArrayList.class);
         ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);

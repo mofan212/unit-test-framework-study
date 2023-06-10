@@ -1,7 +1,8 @@
 package indi.mofan.mock;
 
-import indi.mofan.helloworld.dao.AccountDao;
 import indi.mofan.entity.Account;
+import indi.mofan.helloworld.dao.AccountDao;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,9 +17,16 @@ public class MockByAnnotationTest {
     @Mock
     private AccountDao accountDao;
 
+    private AutoCloseable closeable;
+
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void destroy() throws Exception {
+        closeable.close();
     }
 
     @Test
