@@ -1,11 +1,11 @@
 package indi.mofan.captor;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 /**
  * @author mofan 2020/12/22
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ArgumentCaptorAnnotationTest {
 
     @Captor
@@ -31,7 +31,7 @@ public class ArgumentCaptorAnnotationTest {
         // 参数的捕获
         verify(mockedList).addAll(captor.capture());
         // 验证捕获的参数
-        Assert.assertEquals(2, captor.getValue().size());
-        Assert.assertEquals(list, captor.getValue());
+        Assertions.assertEquals(2, captor.getValue().size());
+        Assertions.assertEquals(list, captor.getValue());
     }
 }

@@ -1,10 +1,10 @@
 package indi.mofan.spy;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author mofan 2020/12/19
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SpyingTest {
 
     @Test
@@ -23,13 +23,13 @@ public class SpyingTest {
         list.add("mofan");
         list.add("默烦");
 
-        Assert.assertEquals(list.get(0), "mofan");
-        Assert.assertEquals(list.get(1), "默烦");
-        Assert.assertEquals(list.size(), 2);
+        Assertions.assertEquals(list.get(0), "mofan");
+        Assertions.assertEquals(list.get(1), "默烦");
+        Assertions.assertEquals(list.size(), 2);
 
         Mockito.when(list.size()).thenReturn(100);
-        Assert.assertTrue(list.size() != 2);
-        Assert.assertEquals(list.size(), 100);
+        Assertions.assertTrue(list.size() != 2);
+        Assertions.assertEquals(list.size(), 100);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class SpyingTest {
         // Mockito.when(list.get(0)).thenReturn(100);
 
         Mockito.doReturn("mofan").when(list).get(0);
-        Assert.assertEquals(list.get(0), "mofan");
+        Assertions.assertEquals(list.get(0), "mofan");
     }
 
 
@@ -57,9 +57,9 @@ public class SpyingTest {
         boolean isMock = Mockito.mockingDetails(mockList).isMock();
         boolean notSpy = Mockito.mockingDetails(mockList).isSpy();
 
-        Assert.assertTrue(isSpy);
-        Assert.assertTrue(notMock);
-        Assert.assertTrue(isMock);
-        Assert.assertFalse(notSpy);
+        Assertions.assertTrue(isSpy);
+        Assertions.assertTrue(notMock);
+        Assertions.assertTrue(isMock);
+        Assertions.assertFalse(notSpy);
     }
 }

@@ -3,30 +3,30 @@ package indi.mofan.stubbing;
 import indi.mofan.helloworld.service.StubbingService;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
 /**
  * @author mofan 2020/12/18
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class StubbingTest {
     private ArrayList<String> list;
 
-    @Before
+    @BeforeEach
     @SuppressWarnings("unchecked")
     public void init() {
         this.list = Mockito.mock(ArrayList.class);
     }
 
-    @After
+    @AfterEach
     @SuppressWarnings("unchecked")
     public void destroy() {
         // 重置 Stubbing
@@ -42,7 +42,7 @@ public class StubbingTest {
 
         try {
             String s = list.get(0);
-            Assert.fail();
+            Assertions.fail();
         } catch (Exception e) {
             // 断言抛出异常
             MatcherAssert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
@@ -60,7 +60,7 @@ public class StubbingTest {
         Mockito.doThrow(RuntimeException.class).when(list).clear();
         try {
             list.clear();
-            Assert.fail();
+            Assertions.fail();
         } catch (Exception e) {
             MatcherAssert.assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
         }
@@ -72,7 +72,7 @@ public class StubbingTest {
         Mockito.doReturn("second").when(list).get(1);
 
         MatcherAssert.assertThat(list.get(0), CoreMatchers.equalTo("first"));
-        Assert.assertEquals(list.get(1), "second");
+        Assertions.assertEquals(list.get(1), "second");
     }
 
     @Test
@@ -84,12 +84,12 @@ public class StubbingTest {
          */
         Mockito.when(list.size()).thenReturn(1).thenReturn(2).thenReturn(3).thenReturn(4);
 
-        Assert.assertEquals(list.size(), 1);
-        Assert.assertEquals(list.size(), 2);
-        Assert.assertEquals(list.size(), 3);
-        Assert.assertEquals(list.size(), 4);
+        Assertions.assertEquals(list.size(), 1);
+        Assertions.assertEquals(list.size(), 2);
+        Assertions.assertEquals(list.size(), 3);
+        Assertions.assertEquals(list.size(), 4);
         // 第五次调用结果还是 4
-        Assert.assertEquals(list.size(), 4);
+        Assertions.assertEquals(list.size(), 4);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class StubbingTest {
 
         for (int i = 0; i < 10; i++) {
             int num = (int)(Math.random() * 100) + 1;
-            Assert.assertEquals(list.get(num), String.valueOf(num * 10));
+            Assertions.assertEquals(list.get(num), String.valueOf(num * 10));
         }
     }
 
@@ -111,10 +111,10 @@ public class StubbingTest {
         StubbingService service = Mockito.mock(StubbingService.class);
 
         Mockito.when(service.getS()).thenReturn("mofan");
-        Assert.assertEquals(service.getS(), "mofan");
+        Assertions.assertEquals(service.getS(), "mofan");
 
         Mockito.when(service.getI()).thenCallRealMethod();
-        Assert.assertEquals(service.getI(), 10);
+        Assertions.assertEquals(service.getI(), 10);
     }
 
 }

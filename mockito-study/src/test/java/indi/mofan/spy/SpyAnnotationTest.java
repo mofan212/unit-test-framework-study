@@ -1,9 +1,9 @@
 package indi.mofan.spy;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
@@ -20,12 +20,12 @@ public class SpyAnnotationTest {
 
     private AutoCloseable closeable;
 
-    @Before
+    @BeforeEach
     public void init() {
         closeable = MockitoAnnotations.openMocks(this);
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         closeable.close();
     }
@@ -35,10 +35,10 @@ public class SpyAnnotationTest {
         list.add("one");
         list.add("two");
 
-        Assert.assertEquals(list.get(0), "one");
-        Assert.assertEquals(list.get(1), "two");
+        Assertions.assertEquals(list.get(0), "one");
+        Assertions.assertEquals(list.get(1), "two");
 
         Mockito.when(list.size()).thenReturn(100);
-        Assert.assertEquals(list.size(), 100);
+        Assertions.assertEquals(list.size(), 100);
     }
 }

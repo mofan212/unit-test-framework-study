@@ -2,9 +2,9 @@ package indi.mofan.mock;
 
 import indi.mofan.entity.Account;
 import indi.mofan.helloworld.dao.AccountDao;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -19,12 +19,12 @@ public class MockByAnnotationTest {
 
     private AutoCloseable closeable;
 
-    @Before
+    @BeforeEach
     public void init() {
         closeable = MockitoAnnotations.openMocks(this);
     }
 
-    @After
+    @AfterEach
     public void destroy() throws Exception {
         closeable.close();
     }

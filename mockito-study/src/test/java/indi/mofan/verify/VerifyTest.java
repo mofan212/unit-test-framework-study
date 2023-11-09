@@ -2,8 +2,8 @@ package indi.mofan.verify;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class VerifyTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testNoMoreInteraction_1() {
         List<String> list = mock(ArrayList.class);
 
@@ -149,7 +149,7 @@ public class VerifyTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testNoMoreInteraction_3() {
         List<String> list = mock(ArrayList.class);
 

@@ -1,7 +1,7 @@
 package indi.mofan.matchers;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -20,9 +20,9 @@ public class ArgumentMatcherTest {
         // 也能这么写
         Mockito.when(list.get(Mockito.eq(1))).thenReturn("默烦");
 
-        Assert.assertEquals(list.get(0), "mofan");
-        Assert.assertEquals(list.get(1), "默烦");
-        Assert.assertNull(list.get(2));
+        Assertions.assertEquals(list.get(0), "mofan");
+        Assertions.assertEquals(list.get(1), "默烦");
+        Assertions.assertNull(list.get(2));
         // 还可以验证一下
         Mockito.verify(list).get(0);
         // 放开下面这段代码，测试不会通过
@@ -40,8 +40,8 @@ public class ArgumentMatcherTest {
         int result_1 = foo.function(new Child1());
         int result_2 = foo.function(new Child2());
 
-        Assert.assertEquals(result_1, 200);
-        Assert.assertEquals(result_2, 100);
+        Assertions.assertEquals(result_1, 200);
+        Assertions.assertEquals(result_2, 100);
     }
 
     @Test
@@ -53,9 +53,9 @@ public class ArgumentMatcherTest {
         int result_1 = foo.function(new Child1());
         int result_2 = foo.function(new Child2());
 
-        Assert.assertEquals(result_1, 200);
+        Assertions.assertEquals(result_1, 200);
         // 没有指定 Child2, 因此返回 int 类型的默认值
-        Assert.assertEquals(result_2, 0);
+        Assertions.assertEquals(result_2, 0);
     }
 
     @Test
@@ -64,8 +64,8 @@ public class ArgumentMatcherTest {
         Mockito.when(foo.function(Mockito.any(Child1.class)))
                 .thenReturn(100);
 
-        Assert.assertEquals(foo.function(new Child1()), 100);
-        Assert.assertNotEquals(foo.function(new Child2()), 100);
+        Assertions.assertEquals(foo.function(new Child1()), 100);
+        Assertions.assertNotEquals(foo.function(new Child2()), 100);
     }
 
     static class Foo {

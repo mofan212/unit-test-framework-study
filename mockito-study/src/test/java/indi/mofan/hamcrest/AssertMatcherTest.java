@@ -1,8 +1,8 @@
 package indi.mofan.hamcrest;
 
 import org.hamcrest.MatcherAssert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
@@ -49,7 +49,7 @@ public class AssertMatcherTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test3() {
         double price = 2.12;
 

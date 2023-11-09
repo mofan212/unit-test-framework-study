@@ -1,13 +1,13 @@
 package indi.mofan.matchers;
 
 import indi.mofan.helloworld.service.SimpleService;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -22,12 +22,12 @@ import static org.mockito.Mockito.when;
 /**
  * @author mofan 2020/12/21
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class WildcardArgumentMatcherTest {
     @Mock
     private SimpleService simpleService;
 
-    @After
+    @AfterEach
     public void destroy() {
         Mockito.reset(simpleService);
     }
@@ -40,9 +40,9 @@ public class WildcardArgumentMatcherTest {
         when(simpleService.method1(anyInt(), anyString(),
                 anyCollection(), Mockito.isA(Serializable.class))).thenReturn(100);
         int result_1 = simpleService.method1(666, "mofan", Collections.emptyList(), "默烦");
-        Assert.assertEquals(result_1, 100);
+        Assertions.assertEquals(result_1, 100);
         int result_2 = simpleService.method1(888, "默烦", Collections.emptySet(), "mofan");
-        Assert.assertEquals(result_2, 100);
+        Assertions.assertEquals(result_2, 100);
     }
 
     @Test
@@ -62,9 +62,9 @@ public class WildcardArgumentMatcherTest {
         int result_2 = simpleService.method1(111, "默烦", Collections.emptyList(), "默烦");
         int result_3 = simpleService.method1(111, "qwer", Collections.emptyList(), "默烦");
 
-        Assert.assertEquals(result_1, 100);
-        Assert.assertEquals(result_2, 200);
-        Assert.assertEquals(result_3, -1);
+        Assertions.assertEquals(result_1, 100);
+        Assertions.assertEquals(result_2, 200);
+        Assertions.assertEquals(result_3, -1);
     }
 
     /**

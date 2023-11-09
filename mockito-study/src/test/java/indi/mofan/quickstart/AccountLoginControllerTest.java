@@ -3,13 +3,13 @@ package indi.mofan.quickstart;
 import indi.mofan.controller.AccountLoginController;
 import indi.mofan.entity.Account;
 import indi.mofan.helloworld.dao.AccountDao;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author mofan 2020/12/18
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AccountLoginControllerTest {
     private AccountDao accountDao;
     private HttpServletRequest request;
     private AccountLoginController accountLoginController;
 
-    @Before
+    @BeforeEach
     public void before() {
         // 测试方法执行前 Mock 数据
         this.accountDao = Mockito.mock(AccountDao.class);
@@ -37,7 +37,7 @@ public class AccountLoginControllerTest {
         Mockito.when(request.getParameter("username")).thenReturn("mofan");
         Mockito.when(request.getParameter("password")).thenReturn("123456");
         Mockito.when(accountDao.findAccount(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(account);
-        Assert.assertEquals(accountLoginController.login(request), "/index");
+        Assertions.assertEquals(accountLoginController.login(request), "/index");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class AccountLoginControllerTest {
         // 指定 findAccount() 方法返回 null
         Mockito.when(accountDao.findAccount(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(null);
         // 返回 /login
-        Assert.assertEquals(accountLoginController.login(request), "/login");
+        Assertions.assertEquals(accountLoginController.login(request), "/login");
     }
 
 
@@ -59,6 +59,6 @@ public class AccountLoginControllerTest {
         Mockito.when(accountDao.findAccount(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
                 .thenThrow(UnsupportedOperationException.class);
         // 返回 /login
-        Assert.assertEquals(accountLoginController.login(request), "/505");
+        Assertions.assertEquals(accountLoginController.login(request), "/505");
     }
 }

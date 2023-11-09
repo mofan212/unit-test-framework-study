@@ -1,7 +1,8 @@
 package indi.mofan.captor;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class ArgumentCaptorTest {
         // 参数的捕获
         verify(mockedList).addAll(argument.capture());
         // 验证捕获的参数
-        Assert.assertEquals(2, argument.getValue().size());
-        Assert.assertEquals(list, argument.getValue());
+        Assertions.assertEquals(2, argument.getValue().size());
+        Assertions.assertEquals(list, argument.getValue());
     }
 
     @Test
@@ -42,9 +43,9 @@ public class ArgumentCaptorTest {
         // argument 只有 verify 之后才有值
         verify(list, times(2)).add(argument.capture());
         // getValue 是最后一次的参数值
-        Assert.assertEquals(temp, argument.getValue().intValue());
+        Assertions.assertEquals(temp, argument.getValue().intValue());
         // getAllValues() 包含所有调用的参数值
-        Assert.assertTrue(argument.getAllValues().contains(temp));
-        Assert.assertTrue(argument.getAllValues().contains(1));
+        Assertions.assertTrue(argument.getAllValues().contains(temp));
+        Assertions.assertTrue(argument.getAllValues().contains(1));
     }
 }
